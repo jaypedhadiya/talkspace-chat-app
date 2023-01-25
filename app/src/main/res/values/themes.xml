@@ -47,6 +47,7 @@
 
     <style name="ShapeAppearance.TestingTalkSpace.AppBarProfile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">25%</item>
+        
     </style>
 
     <style name="ShapeAppearance.TestingTalkSpace.Messages" parent="ShapeAppearance.MaterialComponents.MediumComponent">
