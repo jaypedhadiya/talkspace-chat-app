@@ -87,7 +87,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/massage_input_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/massage_input_text"
-            app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage2"/>
+            app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage2"/>
 
         <ImageView
             android:layout_width="30dp"

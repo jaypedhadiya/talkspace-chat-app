@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.lifecycle.*
 import com.example.talkspace.model.FirebaseMessage
 import com.example.talkspace.model.SQLChat
+import com.example.talkspace.model.SQLiteContact
 import com.example.talkspace.model.SQLiteMessage
-import com.example.talkspace.model.User
 import com.example.talkspace.repositories.ChatRepository
+import com.example.talkspace.repositories.ContactsRepository
 import com.example.talkspace.ui.currentUser
 
-class ChatViewModel(private val repository: ChatRepository): ViewModel() {
-    val chats = repository.getChat()
+class ChatViewModel(private val chatRepository: ChatRepository,
+private val contactsRepository: ContactsRepository): ViewModel() {
+    val chats = chatRepository.getChat()
 
     private val _currentFriendName = MutableLiveData<String>()
     val currentFriendName : LiveData<String> = _currentFriendName
@@ -18,17 +20,6 @@ class ChatViewModel(private val repository: ChatRepository): ViewModel() {
     private val _currentFriendId = MutableLiveData<String>()
     val currentFriendId: LiveData<String> = _currentFriendId
 
-    fun addChat(chat: SQLChat){
-        repository.addChat(chat,viewModelScope)
-    }
-
-    fun addToChats(text: String,timeStamp:String){
-        repository.addToChats(text,
-        timeStamp,
-        currentFriendId.value.toString(),
-        currentFriendName.value.toString(),
-        viewModelScope)
-    }
     fun setFriendName(friendName: String){
         _currentFriendName.value = friendName
     }
@@ -37,38 +28,59 @@ class ChatViewModel(private val repository: ChatRepository): ViewModel() {
         _currentFriendId.value = friendId
     }
 
-    fun sendMessage(message: FirebaseMessage){
-        repository.sendMessage(currentFriendId.value.toString(),message,viewModelScope)
+    fun addChat(chat: SQLChat){
+        chatRepository.addChat(chat,viewModelScope)
     }
 
-    fun stopListeningForMessages(){
-        repository.stopListeningForMessages()
+    fun addContacts(contact: SQLiteContact){
+        contactsRepository.addContacts(contact,viewModelScope)
     }
 
-    fun stopListeningForChats(){
-        repository.stopListeningForChats()
+    fun addToChats(text: String,timeStamp:String){
+        chatRepository.addToChats(text,
+        timeStamp,
+        currentFriendId.value.toString(),
+        currentFriendName.value.toString(),
+        viewModelScope)
     }
 
     fun getMessages(friendId: String ): LiveData<List<SQLiteMessage>>{
-        return repository.getMessages(friendId)
+        return chatRepository.getMessages(friendId)
+    }
+
+    fun getContact():LiveData<List<SQLiteContact>>{
+        return contactsRepository.getContact()
+    }
+    fun sendMessage(message: FirebaseMessage){
+        chatRepository.sendMessage(currentFriendId.value.toString(),message,viewModelScope)
+    }
+
+    fun stopListeningForMessages(){
+        chatRepository.stopListeningForMessages()
+    }
+
+    fun stopListeningForChats(){
+        chatRepository.stopListeningForChats()
     }
 
     fun startListeningForChats(context: Context){
-        repository.startListeningForChats(context,viewModelScope)
+        chatRepository.startListeningForChats(context,viewModelScope)
     }
     fun startListeningForMessages(){
-        repository.startListeningForMessages(
+        chatRepository.startListeningForMessages(
             currentUser?.phoneNumber.toString()
             ,currentFriendId.value.toString(),
             viewModelScope)
     }
 }
 
-class ChatViewModelFactory(private val repository: ChatRepository):ViewModelProvider.Factory{
+class ChatViewModelFactory(private val chatRepository: ChatRepository,
+private val contactsRepository: ContactsRepository
+):ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(ChatViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return ChatViewModel(repository) as T
+            return ChatViewModel(chatRepository,contactsRepository) as T
         }
         throw IllegalArgumentException("Unknown viewModel class")
     }

@@ -5,13 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.talkspace.model.SQLChat
+import com.example.talkspace.model.SQLiteContact
 import com.example.talkspace.model.SQLiteMessage
 
-@Database(entities = [SQLChat::class,SQLiteMessage::class], version = 1, exportSchema = false)
+@Database(entities = [SQLChat::class,SQLiteMessage::class,SQLiteContact::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
     abstract fun chats(): ChatDao
     abstract fun messageDao(): MessageDao
-
+    abstract fun contactDao(): ContactDao
     companion object{
         @Volatile
         private var INSTANCE: AppDatabase? = null

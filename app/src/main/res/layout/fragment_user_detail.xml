@@ -40,7 +40,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.TestingTalkSpace.CornerShape"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.TalkSpace.CornerShape"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -53,7 +53,7 @@
                 android:background="#14354A"
                 android:backgroundTint="#14354A"
                 android:src="@drawable/ic_add"
-                app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage" />
+                app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/user_used_camera"
@@ -65,7 +65,7 @@
                 android:background="#14354A"
                 android:backgroundTint="#14354A"
                 android:src="@drawable/ic_camera"
-                app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage" />
+                app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage" />
         </RelativeLayout>
 
         <LinearLayout

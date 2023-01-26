@@ -1,6 +1,5 @@
 package com.example.talkspace.ui.chatsection
 
-import android.Manifest
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -24,7 +23,7 @@ class ContactsOnAppFragment : Fragment() {
     private lateinit var binding: FragmentContactsOnAppBinding
     private val firestore = FirebaseFirestore.getInstance()
     private val chatViewModel: ChatViewModel by activityViewModels {
-        ChatViewModelFactory((activity?.application as ApplicationClass).repository)
+        ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
     }
     private val pickContact = registerForActivityResult(ActivityResultContracts.PickContact()){ uri ->
         if (uri == null){

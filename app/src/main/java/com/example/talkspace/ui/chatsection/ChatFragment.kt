@@ -1,7 +1,6 @@
 package com.example.talkspace.ui.chatsection
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,6 @@ import com.example.talkspace.observers.MyScrollToBottomObserver
 import com.example.talkspace.ui.currentUser
 import com.example.talkspace.viewmodels.ChatViewModel
 import com.example.talkspace.viewmodels.ChatViewModelFactory
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.Flow
-import java.sql.Timestamp
 
 
 class ChatFragment : Fragment() {
@@ -34,7 +30,7 @@ class ChatFragment : Fragment() {
     private lateinit var currentFriendId: String
     private lateinit var adapter: MessageAdapter
     private val chatViewModel: ChatViewModel by activityViewModels {
-        ChatViewModelFactory((activity?.application as ApplicationClass).repository)
+        ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
     }
 
     override fun onCreateView(
@@ -77,7 +73,7 @@ class ChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        set friend profile
-        val backChatButton = getView()?.findViewById<ImageView>(R.id.back_chat_button)
+        val backChatButton = getView()?.findViewById<ImageView>(R.id.back_contacts_button)
         val friendName = getView()?.findViewById<TextView>(R.id.friend_name)
         friendName?.text = chatViewModel.currentFriendName.value
 

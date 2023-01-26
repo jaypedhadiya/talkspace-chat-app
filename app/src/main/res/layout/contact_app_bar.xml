@@ -51,6 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/home_title"
         android:src="@drawable/profile_dax"
-        app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.AppBarProfile" />
+        app:shapeAppearance="@style/ShapeAppearance.TalkSpace.AppBarProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,39 +7,49 @@
     android:layout_height="70dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
-
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/back_chat_button"
+        android:id="@+id/back_contacts_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="19dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/set_text_layout"
+        app:layout_constraintEnd_toStartOf="@+id/set_text_layout"
+        app:layout_constraintTop_toTopOf="@+id/set_text_layout"
+        app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage" />
+
+    <ImageView
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_marginEnd="17dp"
+        android:elevation="1dp"
         android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_icon"
-        app:layout_constraintEnd_toStartOf="@+id/profile_icon"
-        app:layout_constraintTop_toTopOf="@+id/profile_icon"
-        app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage" />
+        app:layout_constraintTop_toTopOf="@+id/back_contacts_button"
+        app:layout_constraintBottom_toBottomOf="@+id/back_contacts_button"
+        app:layout_constraintStart_toStartOf="@+id/back_contacts_button"
+        app:layout_constraintEnd_toEndOf="@+id/back_contacts_button"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profile_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="64dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/profile_dax"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.AppBarProfile" />
+<!--    <com.google.android.material.imageview.ShapeableImageView-->
+<!--        android:id="@+id/profile_icon"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="64dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/profile_dax"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:shapeAppearance="@style/ShapeAppearance.TalkSpace.AppBarProfile" />-->
 
     <LinearLayout
+        android:id="@+id/set_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="68dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_icon"
-        app:layout_constraintStart_toEndOf="@+id/profile_icon"
-        app:layout_constraintTop_toTopOf="@+id/profile_icon">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/friend_name"
@@ -67,10 +77,10 @@
         android:background="#16384d"
         android:backgroundTint="#14354A"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_icon"
-        app:layout_constraintTop_toTopOf="@+id/profile_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/set_text_layout"
+        app:layout_constraintTop_toTopOf="@+id/set_text_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage" />
+        app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage" />
 
     <ImageView
         android:layout_width="30dp"

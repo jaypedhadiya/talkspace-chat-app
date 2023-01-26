@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -19,13 +17,10 @@ import com.example.talkspace.R
 import com.example.talkspace.SignInActivity
 import com.example.talkspace.databinding.FragmentUserDetailBinding
 import com.example.talkspace.repositories.LocalProfilePhotoStorage
-import com.example.talkspace.repositories.UserRepositories
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
@@ -61,7 +56,7 @@ class UserDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val backChangeButton = getView()?.findViewById<ImageView>(R.id.back_chat_button)
+        val backChangeButton = getView()?.findViewById<ImageView>(R.id.back_contacts_button)
         loadUserDetails()
         loadUserProfilePhoto()
         binding?.editNameIcon?.setOnClickListener {

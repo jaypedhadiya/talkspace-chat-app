@@ -9,17 +9,24 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.findFragment
 
 import androidx.navigation.fragment.findNavController
+import com.example.talkspace.ApplicationClass
 import com.example.talkspace.R
 import com.example.talkspace.databinding.FragmentMainBinding
 import com.example.talkspace.ui.*
+import com.example.talkspace.viewmodels.ChatViewModel
+import com.example.talkspace.viewmodels.ChatViewModelFactory
 
 class MainFragment : Fragment() {
 
     private var binding: FragmentMainBinding? = null
 
+    private val chatViewModel : ChatViewModel by activityViewModels {
+        ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,6 +82,7 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d("MainFragment","onStart")
+        chatViewModel.startListeningForChats(requireContext())
 //        if(savedInstanceState == null){
 
 //            binding?.bottomNavigation?.selectedItemId = R.id.item_chat
@@ -85,7 +93,7 @@ class MainFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Log.d("MainFragment","stop main fragment")
-
+        chatViewModel.stopListeningForChats()
     }
 
     override fun onDestroy() {

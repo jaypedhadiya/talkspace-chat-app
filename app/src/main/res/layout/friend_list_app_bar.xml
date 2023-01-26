@@ -57,6 +57,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/home_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/home_title"
-        app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.AppBarProfile" />
+        app:shapeAppearance="@style/ShapeAppearance.TalkSpace.AppBarProfile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

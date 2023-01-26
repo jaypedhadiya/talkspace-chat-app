@@ -19,16 +19,13 @@ import com.example.talkspace.R
 import com.example.talkspace.adapter.ChatListAdapter
 import com.example.talkspace.adapter.StatusAdapter
 import com.example.talkspace.databinding.FragmentFriendListBinding
-import com.example.talkspace.model.SQLChat
 import com.example.talkspace.viewmodels.ChatViewModel
 import com.example.talkspace.viewmodels.ChatViewModelFactory
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestore
 
 class FriendListFragment : Fragment() {
 
     private val chatViewModel : ChatViewModel by activityViewModels {
-        ChatViewModelFactory((activity?.application as ApplicationClass).repository)
+        ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
     }
     private lateinit var binding : FragmentFriendListBinding
     override fun onCreateView(
@@ -67,20 +64,7 @@ class FriendListFragment : Fragment() {
         val menuBtn = getView()?.findViewById<ImageView>(R.id.menu_btn)
         val searchBtn = getView()?.findViewById<ImageView>(R.id.search_btn)
         val profileIcon = getView()?.findViewById<ImageView>(R.id.profile_icon)
-        //        For contacts permissions
-        val requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
-            ){ isGranted ->
-                if (isGranted){
-                    Log.i("Permission" ,"Granted")
-                }else{
-                    Log.i("Permission","Denied")
-                }
-            }
-        requestPermissionLauncher.launch(
-            Manifest.permission.READ_CONTACTS
-        )
+
         menuBtn?.setOnClickListener {
             Toast.makeText(context,"menu button is implement will be later", Toast.LENGTH_SHORT).show()
         }

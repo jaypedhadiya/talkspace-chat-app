@@ -19,23 +19,23 @@
         <item name="backgroundStacked">@color/test_1</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.CornerShape" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.CornerShape" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">35dp</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.CornerShapeForeIconImage" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">10dp</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.CornerShapeForeFriendProfile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.CornerShapeForeFriendProfile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">37%</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.CornerShapeForeFriendUnchack" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.CornerShapeForeFriendUnchack" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">35%</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage2" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.CornerShapeForeIconImage2" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">14dp</item>
     </style>
 
@@ -45,11 +45,11 @@
 <!--        <item name="backgroundColor">#C3BFBF</item>-->
 <!--    </style>-->
 
-    <style name="ShapeAppearance.TestingTalkSpace.AppBarProfile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.AppBarProfile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">25%</item>
     </style>
 
-    <style name="ShapeAppearance.TestingTalkSpace.Messages" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <style name="ShapeAppearance.TalkSpace.Messages" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerSize">37%</item>
     </style>
 

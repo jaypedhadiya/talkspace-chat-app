@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/image1"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.TestingTalkSpace.CornerShape"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.TalkSpace.CornerShape"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -44,7 +44,7 @@
                 android:layout_alignParentTop="true"
                 android:elevation="9dp"
                 android:layout_alignParentStart="true"
-                app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage"
+                app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage"
                 android:src="@drawable/ic_add"
                 />
 
@@ -55,7 +55,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:elevation="9dp"
-                app:shapeAppearance="@style/ShapeAppearance.TestingTalkSpace.CornerShapeForeIconImage"
+                app:shapeAppearance="@style/ShapeAppearance.TalkSpace.CornerShapeForeIconImage"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_camera"/>
@@ -80,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="@+id/name_enter_title"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/name_enter_title"
@@ -101,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="@+id/about_title"
             app:layout_constraintStart_toStartOf="@+id/about_title"
             app:layout_constraintTop_toBottomOf="@+id/about_title"/>
