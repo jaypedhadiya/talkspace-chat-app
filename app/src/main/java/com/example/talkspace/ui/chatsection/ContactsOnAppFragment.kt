@@ -10,9 +10,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.talkspace.ApplicationClass
 import com.example.talkspace.R
+import com.example.talkspace.adapter.ContactAdapter
 import com.example.talkspace.databinding.FragmentContactsOnAppBinding
+import com.example.talkspace.model.SQLiteContact
 import com.example.talkspace.viewmodels.ChatViewModel
 import com.example.talkspace.viewmodels.ChatViewModelFactory
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ContactsOnAppFragment : Fragment() {
 
     private lateinit var binding: FragmentContactsOnAppBinding
+    private lateinit var contacts : LiveData<List<SQLiteContact>>
     private val firestore = FirebaseFirestore.getInstance()
     private val chatViewModel: ChatViewModel by activityViewModels {
         ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
@@ -68,6 +73,19 @@ class ContactsOnAppFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentContactsOnAppBinding.inflate(inflater,container,false)
+        contacts = chatViewModel.getContact()
+        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding.contactRecyclerview.layoutManager = layoutManager
+
+        val adapter = ContactAdapter(chatViewModel)
+        binding.contactRecyclerview.adapter = adapter
+
+        contacts.observe(viewLifecycleOwner){ contacts ->
+            contacts.let {
+                adapter.submitList(contacts)
+            }
+
+        }
         return binding.root
     }
 
@@ -88,6 +106,13 @@ class ContactsOnAppFragment : Fragment() {
                 if (value == null){
                     Toast.makeText(requireContext(),"$friendName does not use the App",Toast.LENGTH_LONG).show()
                 }else{
+                    val contact = SQLiteContact(
+                        friendId,
+                        friendName,
+                        "",
+                        ""
+                    )
+                    chatViewModel.addContacts(contact)
                     chatViewModel.setFriendId(friendId)
                     chatViewModel.setFriendName(friendName)
                     navigateToChatFragment()

@@ -55,14 +55,6 @@ private val contactsRepository: ContactsRepository): ViewModel() {
         chatRepository.sendMessage(currentFriendId.value.toString(),message,viewModelScope)
     }
 
-    fun stopListeningForMessages(){
-        chatRepository.stopListeningForMessages()
-    }
-
-    fun stopListeningForChats(){
-        chatRepository.stopListeningForChats()
-    }
-
     fun startListeningForChats(context: Context){
         chatRepository.startListeningForChats(context,viewModelScope)
     }
@@ -71,6 +63,21 @@ private val contactsRepository: ContactsRepository): ViewModel() {
             currentUser?.phoneNumber.toString()
             ,currentFriendId.value.toString(),
             viewModelScope)
+    }
+    fun startListeningForContacts(){
+        contactsRepository.startListeningForContacts(viewModelScope)
+    }
+
+    fun stopListeningForMessages(){
+        chatRepository.stopListeningForMessages()
+    }
+
+    fun stopListeningForChats(){
+        chatRepository.stopListeningForChats()
+    }
+
+    fun stopListeningForContacts(){
+        contactsRepository.sotpListeningForContacts()
     }
 }
 

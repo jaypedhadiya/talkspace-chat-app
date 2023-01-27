@@ -12,7 +12,8 @@ import com.example.talkspace.databinding.ChatViewBinding
 import com.example.talkspace.model.SQLChat
 import com.example.talkspace.viewmodels.ChatViewModel
 
-class ChatListAdapter(private val chatViewModel: ChatViewModel): ListAdapter<SQLChat,ChatListAdapter.ChatListViewHolder>(ChatsComparator()){
+class ChatListAdapter(private val chatViewModel: ChatViewModel):
+    ListAdapter<SQLChat,ChatListAdapter.ChatListViewHolder>(ChatsComparator()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatListViewHolder{
         val inflater= LayoutInflater.from(parent.context)

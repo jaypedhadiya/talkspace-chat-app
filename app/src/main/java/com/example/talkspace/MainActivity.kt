@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.talkspace.databinding.ActivityMainBinding
@@ -54,10 +55,14 @@ class MainActivity : AppCompatActivity() {
         requestPermissionLauncher.launch(
             Manifest.permission.READ_CONTACTS
         )
+        chatViewModel.startListeningForChats(this)
+        chatViewModel.startListeningForContacts()
     }
 
     override fun onStop() {
         super.onStop()
+        chatViewModel.stopListeningForChats()
+        chatViewModel.stopListeningForContacts()
     }
 
     override fun onSupportNavigateUp(): Boolean {

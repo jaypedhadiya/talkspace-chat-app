@@ -163,6 +163,22 @@ class ChatRepository(
                                         chatDao.insert(chat)
                                     }
 
+                                    val contact = FirebaseContact(
+                                        newFriendId,
+                                        newFriendName,
+                                        "",
+                                        ""
+                                    )
+                                    firestore.collection("users")
+                                        .document(currentUser?.phoneNumber.toString())
+                                        .collection("contacts")
+                                        .document(newFriendId)
+                                        .set(contact)
+                                        .addOnSuccessListener {
+                                            Log.d("ChatRepository","Contact add successfully")
+                                        }.addOnFailureListener {
+                                            Log.d("ChatRepository","Failed to add contact",it)
+                                        }
                                     //Friestore in update name
 
                                     if (newFriendName != newFriendId) {

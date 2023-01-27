@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Log.d("MainFragment","onStart")
-        chatViewModel.startListeningForChats(requireContext())
+//        chatViewModel.startListeningForChats(requireContext())
 //        if(savedInstanceState == null){
 
 //            binding?.bottomNavigation?.selectedItemId = R.id.item_chat

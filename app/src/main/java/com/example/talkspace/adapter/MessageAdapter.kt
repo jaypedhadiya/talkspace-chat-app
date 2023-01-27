@@ -38,14 +38,16 @@ class MessageAdapter:ListAdapter<SQLiteMessage,RecyclerView.ViewHolder>(MessageC
         }
     }
 
-    class SendMessageViewHolder(private val binding:SenderMessageViewBinding):RecyclerView.ViewHolder(binding.root){
+    class SendMessageViewHolder(private val binding:SenderMessageViewBinding)
+        :RecyclerView.ViewHolder(binding.root){
         fun bind(item: SQLiteMessage){
             binding.messageText.text = item.text
             binding.messageState.text = item.timeStamp.toString()
         }
     }
 
-    class ReceiveMessageViewHolder(private val binding: ReceiverMessageViewBinding):RecyclerView.ViewHolder(binding.root){
+    class ReceiveMessageViewHolder(private val binding: ReceiverMessageViewBinding):
+        RecyclerView.ViewHolder(binding.root){
         fun bind(item: SQLiteMessage){
             binding.messageText.text = item.text
             binding.messageState.text = item.timeStamp.toString()
