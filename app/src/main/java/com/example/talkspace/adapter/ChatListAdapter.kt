@@ -36,7 +36,7 @@ class ChatListAdapter(private val chatViewModel: ChatViewModel):
         }
     }
 
-    class ChatListViewHolder(private val binding: ChatViewBinding):
+    inner class ChatListViewHolder(private val binding: ChatViewBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bind(item : SQLChat){
             binding.friendName.text = item.friendName

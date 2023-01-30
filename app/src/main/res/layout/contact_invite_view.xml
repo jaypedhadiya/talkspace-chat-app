@@ -5,18 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="3dp"
-    android:layout_marginStart="9dp"
-    android:layout_marginEnd="9dp"
-    android:paddingBottom="3dp"
-    android:id="@+id/button_click"
+    android:paddingTop="7dp"
+    android:paddingEnd="18dp"
+    android:paddingBottom="7dp"
     app:layout_constraintTop_toBottomOf="@+id/button_container">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/contact_profile_image"
+        android:id="@+id/contact_invite_profile_image"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:padding="4dp"
+        android:layout_marginStart="19dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile_photo"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,38 +25,30 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/contact_name"
+        android:id="@+id/contact_invite_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="J.k.pedhadiya"
         android:textStyle="bold"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="16dp"
         android:textSize="16dp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@+id/contact_profile_image"
-        app:layout_constraintBottom_toTopOf="@+id/contact_about"
-        app:layout_constraintStart_toEndOf="@+id/contact_profile_image"
+        app:layout_constraintTop_toTopOf="@+id/contact_invite_profile_image"
+        app:layout_constraintBottom_toBottomOf="@+id/contact_invite_profile_image"
+        app:layout_constraintStart_toEndOf="@+id/contact_invite_profile_image"
         />
 
     <TextView
-        android:id="@+id/contact_about"
+        android:id="@+id/contact_invite_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hey, I am use Talk Space"
-        android:layout_marginStart="7dp"
-        app:layout_constraintTop_toBottomOf="@+id/contact_name"
-        app:layout_constraintBottom_toBottomOf="@+id/contact_profile_image"
-        app:layout_constraintStart_toEndOf="@+id/contact_profile_image"/>
-
-    <TextView
-        android:id="@+id/friend_last_seen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="..."
-        android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="@+id/contact_profile_image"
-        app:layout_constraintBottom_toBottomOf="@+id/contact_profile_image"
+        android:text="INVITE"
+        android:textColor="#00BCD4"
+        android:textSize="16dp"
+        android:padding="5dp"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintTop_toTopOf="@+id/contact_invite_profile_image"
+        app:layout_constraintBottom_toBottomOf="@+id/contact_invite_profile_image"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="there_dot_horizontal"
+    android:width="24dp"
+    android:viewportWidth="24"
+    android:height="24dp"
+    android:viewportHeight="24" >
+    <group
+        android:name="there_dot"
+        android:translateX="12"
+        android:translateY="12" >
+        <group
+            android:name="circle_1"
+            android:translateX="6">
+            <group
+                android:name="circle_1" >
+                <path
+                android:name="circle_1"
+                android:fillColor="#FF8F8F8F"
+                android:pathData="M 0.0,-2.0 l 0.0,0.0 c 1.1045694996,0.0 2.0,0.8954305004 2.0,2.0 l 0.0,0.0 c 0.0,1.1045694996 -0.8954305004,2.0 -2.0,2.0 l 0.0,0.0 c -1.1045694996,0.0 -2.0,-0.8954305004 -2.0,-2.0 l 0.0,0.0 c 0.0,-1.1045694996 0.8954305004,-2.0 2.0,-2.0 Z" />
+            </group>
+        </group>
+        <group
+            android:name="circle_2">
+            <group
+                android:name="cirle_2" >
+                <path
+                android:name="cirle_2"
+                android:fillColor="#FF8F8F8F"
+                android:pathData="M 0.0,-2.0 l 0.0,0.0 c 1.1045694996,0.0 2.0,0.8954305004 2.0,2.0 l 0.0,0.0 c 0.0,1.1045694996 -0.8954305004,2.0 -2.0,2.0 l 0.0,0.0 c -1.1045694996,0.0 -2.0,-0.8954305004 -2.0,-2.0 l 0.0,0.0 c 0.0,-1.1045694996 0.8954305004,-2.0 2.0,-2.0 Z" />
+            </group>
+        </group>
+        <group
+            android:name="cirle_3"
+            android:translateX="-6">
+            <group
+                android:name="cirle_3" >
+                <path
+                android:name="cirle_3"
+                android:fillColor="#FF8F8F8F"
+                android:pathData="M 0.0,-2.0 l 0.0,0.0 c 1.1045694996,0.0 2.0,0.8954305004 2.0,2.0 l 0.0,0.0 c 0.0,1.1045694996 -0.8954305004,2.0 -2.0,2.0 l 0.0,0.0 c -1.1045694996,0.0 -2.0,-0.8954305004 -2.0,-2.0 l 0.0,0.0 c 0.0,-1.1045694996 0.8954305004,-2.0 2.0,-2.0 Z" />
+            </group>
+        </group>
+    </group>
+</vector>

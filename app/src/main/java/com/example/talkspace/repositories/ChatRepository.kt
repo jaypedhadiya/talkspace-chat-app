@@ -141,7 +141,7 @@ class ChatRepository(
                         for (dc in snapshot.documentChanges) {
                             when (dc.type) {
                                 DocumentChange.Type.ADDED -> {
-                                    Log.d("FriendListFragment", "New chat added ")
+                                    Log.d("ChatRepository", "New chat added ")
                                     val userData = dc.document.data
 
                                     // Check if user is present in contacts or not
@@ -167,7 +167,8 @@ class ChatRepository(
                                         newFriendId,
                                         newFriendName,
                                         "",
-                                        ""
+                                        "",
+                                        false
                                     )
                                     firestore.collection("users")
                                         .document(currentUser?.phoneNumber.toString())
@@ -199,7 +200,7 @@ class ChatRepository(
                                     }
                                 }
                                 else -> {
-                                    Log.d("FriendListFragment", "Other operation done")
+                                    Log.d("ChatRepository", "Other operation done")
                                 }
                             }
                         }

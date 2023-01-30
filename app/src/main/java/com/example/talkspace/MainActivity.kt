@@ -2,18 +2,23 @@ package com.example.talkspace
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.talkspace.databinding.ActivityMainBinding
 import com.example.talkspace.viewmodels.ChatViewModel
 import com.example.talkspace.viewmodels.ChatViewModelFactory
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
@@ -36,27 +41,38 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.outer_container) as NavHostFragment
 
         navController = navHostFragment.navController
-
+        val setting = FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build()
+        FirebaseFirestore.getInstance().firestoreSettings = setting
     }
 
     override fun onStart() {
         super.onStart()
-        //        For contacts permissions
+        //    First check permissions
         val requestPermissionLauncher =
             registerForActivityResult(
                 ActivityResultContracts.RequestPermission()
             ){ isGranted ->
                 if (isGranted){
                     Log.i("Permission" ,"Granted")
+                    chatViewModel.startListeningForChats(this)
+//                    chatViewModel.startListeningForContacts()
                 }else{
                     Log.i("Permission","Denied")
+                    Toast.makeText(this,
+                        "You need to add permission in order to access contacts",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        requestPermissionLauncher.launch(
-            Manifest.permission.READ_CONTACTS
-        )
-        chatViewModel.startListeningForChats(this)
-        chatViewModel.startListeningForContacts()
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+            Log.d("Permission","Permission Granted")
+            chatViewModel.startListeningForChats(this)
+//            chatViewModel.startListeningForContacts()
+        }else{
+            requestPermissionLauncher.launch(
+                Manifest.permission.READ_CONTACTS
+            )
+        }
     }
 
     override fun onStop() {

@@ -8,8 +8,12 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/status_image"
-        android:layout_width="65dp"
+        android:layout_width="69dp"
         android:layout_height="65dp"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:padding="5dp"
         android:elevation="1dp"
         android:scaleType="centerCrop"

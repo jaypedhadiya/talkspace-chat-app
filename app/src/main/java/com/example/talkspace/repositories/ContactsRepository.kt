@@ -46,13 +46,13 @@ class ContactsRepository(
     }
 
     fun startListeningForContacts(coroutineScope: CoroutineScope){
-        Log.d("ContactsRepository","Start Listening for Chats...")
+        Log.d("ContactsRepository","Start Listening for Contacts...")
         registration = firestore.collection("users")
             .document(currentUser?.phoneNumber.toString())
             .collection("contacts")
             .addSnapshotListener { snapshot, e ->
-                if (e == null){
-                    Log.d("ContactsRepository","Failed to listening contacts")
+                if (e != null){
+                    Log.d("ContactsRepository","Failed to listening contacts : $e")
                     return@addSnapshotListener
                 }
                 if (snapshot != null) {
@@ -67,7 +67,8 @@ class ContactsRepository(
                                         data["contactPhoneNumber"].toString(),
                                         data["contactName"].toString(),
                                         "",
-                                        ""
+                                        "",
+                                        false
                                     )
                                     coroutineScope.launch(Dispatchers.IO) {
                                         contactDao.insert(contact.toSQLiteObject())

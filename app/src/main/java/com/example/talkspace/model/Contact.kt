@@ -8,14 +8,16 @@ data class FirebaseContact(
     val contactPhoneNumber: String,
     val contactName: String,
     val contactAbout: String,
-    val contactPhotoUrl: String
+    val contactPhotoUrl: String,
+    val isAppUser: Boolean
 ){
     fun toSQLiteObject():SQLiteContact {
         return SQLiteContact(
             contactPhoneNumber = contactPhoneNumber,
             contactName = contactName,
             contactAbout = contactAbout,
-            contactPhotoUrl = contactPhotoUrl
+            contactPhotoUrl = contactPhotoUrl,
+            isAppUser = isAppUser
         )
     }
 }
@@ -25,15 +27,16 @@ data class SQLiteContact(
     @PrimaryKey val contactPhoneNumber: String,
     @ColumnInfo(name= "contactName") val contactName: String,
     @ColumnInfo(name = "contactAbout") val contactAbout: String,
-    @ColumnInfo("contactPhotoUrl") val contactPhotoUrl: String
-
+    @ColumnInfo("contactPhotoUrl") val contactPhotoUrl: String,
+    @ColumnInfo(name = "isAppUser") val isAppUser: Boolean
 ){
     fun toFirebaseContact():FirebaseContact{
         return FirebaseContact(
             contactPhoneNumber = contactPhoneNumber,
             contactName = contactName,
             contactAbout = contactAbout,
-            contactPhotoUrl = contactPhotoUrl
+            contactPhotoUrl = contactPhotoUrl,
+            isAppUser = isAppUser
         )
     }
 }

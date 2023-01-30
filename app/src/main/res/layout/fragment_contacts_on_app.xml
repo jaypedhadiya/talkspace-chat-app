@@ -13,10 +13,12 @@
         app:layout_constraintTop_toTopOf="parent">
         <include layout="@layout/contacts_on_app_bar"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contact_recyclerview"
+        android:id="@+id/section_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        tools:listitem="@layout/section_view"
         app:layout_constraintTop_toBottomOf="@+id/contacts_on_app_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
