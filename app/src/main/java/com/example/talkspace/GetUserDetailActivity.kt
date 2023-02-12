@@ -60,7 +60,7 @@ class GetUserDetailActivity : AppCompatActivity() {
 
         Log.d("GetUserDetailActivity", "user detail adding in fireStore")
         val addUser = User(
-            currentUser?.phoneNumber.toString(),
+            currentUser?.uid,
             binding.userNameIpt.text.toString(),
             binding.userAboutIpt.text.toString(),
             currentUser?.phoneNumber,
@@ -118,12 +118,13 @@ class GetUserDetailActivity : AppCompatActivity() {
 
     //    upload profile photo in firebase storage and update firestore
     private fun uploadProfilePhoto() {
-        storageRef.child("User profiles/${currentUser!!.phoneNumber.toString()}.png")
+        storageRef.child("User profiles/${currentUser!!.uid}.png")
             .putFile(newUri)
             .addOnSuccessListener { taskSnapshot ->
                 taskSnapshot.metadata?.reference?.downloadUrl
                     ?.addOnSuccessListener { uri ->
-                        Firebase.firestore.collection("users").document(currentUser.phoneNumber.toString())
+                        Firebase.firestore.collection("users")
+                            .document(currentUser.phoneNumber.toString())
                             .update("userPhotoUrl", uri)
                             .addOnSuccessListener {
                                 Log.d("GetUserDetailActivity", "User photo upload")

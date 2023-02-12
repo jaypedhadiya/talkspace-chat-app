@@ -22,26 +22,26 @@ import com.example.talkspace.viewmodels.ChatViewModelFactory
 
 class MainFragment : Fragment() {
 
-    private var binding: FragmentMainBinding? = null
+    private lateinit var binding: FragmentMainBinding
 
-    private val chatViewModel : ChatViewModel by activityViewModels {
-        ChatViewModelFactory((activity?.application as ApplicationClass).chatRepository,(activity?.application as ApplicationClass).contactsRepository)
-    }
+//    private val chatViewModel : ChatViewModel by activityViewModels {
+//        ChatViewModelFactory((activity?.application as ApplicationClass)
+//            .chatRepository,(activity?.application as ApplicationClass).contactsRepository)
+//    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View{
 
-        val fragmentBinding= FragmentMainBinding.inflate(inflater, container, false)
-        binding = fragmentBinding
-        return fragmentBinding.root
+        binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("MainFragment","onViewCreated")
 
-        binding?.bottomNavigation?.setOnItemSelectedListener { item ->
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.item_chat ->{ parentFragmentManager.beginTransaction()
                     .replace(R.id.inner_container, FriendListFragment(),"")
@@ -73,33 +73,24 @@ class MainFragment : Fragment() {
             }
         }
         Log.d("MainFragment","savedInstanceState : $savedInstanceState and " +
-                "\n selectedItemId : ${binding?.bottomNavigation?.autofillId}")
+                "\n selectedItemId : ${binding.bottomNavigation.autofillId}")
         if(savedInstanceState == null || savedInstanceState.isEmpty){
-            binding?.bottomNavigation?.selectedItemId = R.id.item_chat
+            binding.bottomNavigation.selectedItemId = R.id.item_chat
         }
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("MainFragment","onStart")
-//        chatViewModel.startListeningForChats(requireContext())
-//        if(savedInstanceState == null){
-
-//            binding?.bottomNavigation?.selectedItemId = R.id.item_chat
-
-//        }
+        Log.d("MainFragment", "onStart")
     }
 
     override fun onStop() {
         super.onStop()
         Log.d("MainFragment","stop main fragment")
-        chatViewModel.stopListeningForChats()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         Log.d("MainFragment.Kt","Destroy main fragment")
-        binding = null
     }
 }

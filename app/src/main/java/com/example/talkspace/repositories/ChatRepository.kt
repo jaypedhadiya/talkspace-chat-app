@@ -1,19 +1,14 @@
 package com.example.talkspace.repositories
 
-import android.content.Context
-import android.net.Uri
-import android.provider.ContactsContract
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.example.talkspace.model.*
-import com.example.talkspace.ui.chatsection.ChatFragment
-import com.example.talkspace.ui.currentUser
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import com.google.firebase.firestore.auth.User
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -121,16 +116,12 @@ class ChatRepository(
             }
     }
 
-    fun startListeningForChats(context: Context, coroutineScope: CoroutineScope) {
+    fun startListeningForChats(coroutineScope: CoroutineScope) {
         Log.d("ChatRepository", "Starting listener for chats...")
-        val settings = FirebaseFirestoreSettings.Builder()
-            .setPersistenceEnabled(false)
-            .build()
-        firestore.firestoreSettings = settings
         chatRegistration = firestore.collection("users")
             .document(currentUser?.phoneNumber.toString())
             .collection("friends")
-            .addSnapshotListener() { snapshot, e ->
+            .addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     return@addSnapshotListener
                 }
@@ -143,60 +134,60 @@ class ChatRepository(
                                 DocumentChange.Type.ADDED -> {
                                     Log.d("ChatRepository", "New chat added ")
                                     val userData = dc.document.data
-
-                                    // Check if user is present in contacts or not
-                                    val newFriendId = userData["phoneNumber"].toString()
-                                    val newFriendName = returnNameIfExists(
+                                    val chat = FirebaseChat(
                                         userData["phoneNumber"].toString(),
-                                        context
-                                    )
-                                    val chat = SQLChat(
-                                        newFriendId,
-                                        newFriendName,
+                                        userData["friendName"].toString(),
                                         userData["friendAbout"].toString(),
-                                        userData["friendPhotoUri"].toString(),
+                                        userData["friendPhotoUrl"].toString(),
                                         userData["lastChat"].toString(),
                                         userData["lastTimeStamp"].toString(),
                                         0
                                     )
-                                    coroutineScope.launch(Dispatchers.IO) {
-                                        chatDao.insert(chat)
+
+                                    coroutineScope.launch (Dispatchers.IO){
+//                                        val contact = contactsOnAppUser.value?.find { it.contactPhoneNumber == chat.phoneNumber }
+
+                                    val contact: SQLiteContact= chatDao.checkContact(userData["phoneNumber"].toString())
+                                        if (contact != null){
+                                            firestore.collection("users")
+                                                .document(currentUser?.phoneNumber.toString())
+                                                .collection("friends")
+                                                .document(chat.phoneNumber)
+                                                .update("friendName" ,contact.contactName)
+                                                .addOnSuccessListener {
+                                                    Log.d("ChatRepository","Chat is updated : ${contact.contactName}")
+                                                }
+                                                .addOnFailureListener {
+                                                    Log.d("ChatRepository","Failed to update chat")
+                                                }
+                                        }else{
+                                            chatDao.insert(chat.toSQLObject())
+                                        }
                                     }
 
-                                    val contact = FirebaseContact(
-                                        newFriendId,
-                                        newFriendName,
-                                        "",
-                                        "",
-                                        false
+                                }
+                                DocumentChange.Type.MODIFIED -> {
+                                    Log.d("ChatRepository","Update Chat")
+                                    val data = dc.document.data
+                                    val chat = FirebaseChat(
+                                        data["phoneNumber"].toString(),
+                                        data["friendName"].toString(),
+                                        data["friendAbout"].toString(),
+                                        data["friendPhotoUrl"].toString(),
+                                        data["lastChat"].toString(),
+                                        data["lastTimeStamp"].toString(),
+                                        data["remainingMessage"].toString().toInt()
                                     )
-                                    firestore.collection("users")
-                                        .document(currentUser?.phoneNumber.toString())
-                                        .collection("contacts")
-                                        .document(newFriendId)
-                                        .set(contact)
-                                        .addOnSuccessListener {
-                                            Log.d("ChatRepository","Contact add successfully")
-                                        }.addOnFailureListener {
-                                            Log.d("ChatRepository","Failed to add contact",it)
-                                        }
-                                    //Friestore in update name
-
-                                    if (newFriendName != newFriendId) {
-                                        firestore.collection("users")
-                                            .document(currentUser?.phoneNumber.toString())
-                                            .collection("friends")
-                                            .document(newFriendId)
-                                            .update("friendName", newFriendName)
-                                            .addOnSuccessListener {
-                                                Log.d("ChatRepository", "New chat's name updated")
-                                            }.addOnFailureListener {
-                                                Log.d(
-                                                    "ChatRepository",
-                                                    "Error updating new chat name",
-                                                    it
-                                                )
-                                            }
+                                    coroutineScope.launch (Dispatchers.IO){
+                                        Log.d("ChatRepository","Update Chat in SQLite database")
+                                        chatDao.insert(chat.toSQLObject())
+                                    }
+                                }
+                                DocumentChange.Type.REMOVED -> {
+                                    Log.d("ChatRepository","Delete Chat")
+                                    val data = dc.document.data
+                                    coroutineScope.launch (Dispatchers.IO){
+                                        chatDao.delete(data["phoneNumber"].toString())
                                     }
                                 }
                                 else -> {
@@ -261,7 +252,7 @@ class ChatRepository(
     }
 
     fun stopListeningForChats() {
-        Log.d("ChatRepository", "Stopping listening for messages...")
+        Log.d("ChatRepository", "Stopping listening for chats...")
         chatRegistration?.remove()
         chatRegistration = null
     }
@@ -270,41 +261,5 @@ class ChatRepository(
         Log.d("ChatRepository", "Stopping listening for messages...")
         messageRegistration?.remove()
         messageRegistration = null
-    }
-
-    fun returnNameIfExists(friendId: String, context: Context): String {
-        val uri = Uri.withAppendedPath(
-            ContactsContract.PhoneLookup.CONTENT_FILTER_URI,
-            Uri.encode(friendId)
-        )
-
-        val projection = arrayOf(
-            ContactsContract.PhoneLookup._ID,
-            ContactsContract.PhoneLookup.NUMBER,
-            ContactsContract.PhoneLookup.DISPLAY_NAME
-        )
-        val cursor = context.contentResolver.query(uri, projection, null, null, null)
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                val idIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup._ID)
-                val displayIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME)
-                var contactId = ""
-                var contactName = ""
-                if (idIndex >= 0) contactId = cursor.getString(idIndex)
-                if (displayIndex >= 0) contactName = cursor.getString(displayIndex)
-
-                Log.d("ChatRepository", "id : $contactId , Name : $contactName")
-                cursor.close()
-                return contactName
-            } else {
-                Log.d("ChatRepository", "Not in Contact")
-                cursor.close()
-                return friendId
-            }
-        } else {
-            Log.d("Chats", "Cursor is null")
-            return friendId
-        }
-
     }
 }

@@ -1,6 +1,5 @@
 package com.example.talkspace.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ import com.example.talkspace.R
 import com.example.talkspace.adapter.ChatListAdapter
 import com.example.talkspace.adapter.StatusAdapter
 import com.example.talkspace.databinding.FragmentFriendListBinding
+import com.example.talkspace.model.SQLChat
 import com.example.talkspace.viewmodels.ChatViewModel
 import com.example.talkspace.viewmodels.ChatViewModelFactory
 
@@ -79,12 +79,10 @@ class FriendListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-//        chatViewModel.startListeningForChats(requireContext())
     }
 
     override fun onStop() {
         super.onStop()
-//        chatViewModel.stopListeningForChats()
     }
     override fun onDestroy() {
         super.onDestroy()

@@ -6,6 +6,9 @@
     android:id="@+id/custom_tools_bar"
     android:layout_width="match_parent"
     android:layout_height="70dp"
+    android:background="@drawable/action_bar_background"
+    app:layout_collapseMode="pin"
+    android:elevation="0.001dp"
     android:paddingTop="10dp"
     android:paddingBottom="20dp">
 

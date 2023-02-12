@@ -7,12 +7,12 @@ import org.checkerframework.checker.nullness.qual.NonNull
 
 data class FirebaseChat(
     val phoneNumber: String,
-    val friendName: String,
-    val friendAbout: String,
-    val friendPhotoUrl: String,
-    val lastChat: String,
-    val lastTimeStamp: String,
-    val remainingMessage: Int,
+    var friendName: String,
+    var friendAbout: String,
+    var friendPhotoUrl: String,
+    var lastChat: String,
+    var lastTimeStamp: String,
+    var remainingMessage: Int,
 ){
     fun toSQLObject(): SQLChat{
         return SQLChat(
@@ -30,10 +30,10 @@ data class FirebaseChat(
 @Entity(tableName = "chats")
 data class SQLChat(
     @PrimaryKey val phoneNumber: String,
-    @ColumnInfo(name = "friendName") val friendName: String,
-    @ColumnInfo(name = "friendAbout") val friendAbout: String,
-    @ColumnInfo(name = "friendPhotoUri") val friendPhotoUri: String,
-    @ColumnInfo(name = "lastChat") val lastChat: String,
-    @ColumnInfo(name = "lastTimeStamp") val lastTimeStamp: String,
-    @ColumnInfo(name = "remainingMessages") val remainingMessage: Int
+    @ColumnInfo(name = "friendName") var friendName: String,
+    @ColumnInfo(name = "friendAbout") var friendAbout: String,
+    @ColumnInfo(name = "friendPhotoUri") var friendPhotoUri: String,
+    @ColumnInfo(name = "lastChat") var lastChat: String,
+    @ColumnInfo(name = "lastTimeStamp") var lastTimeStamp: String,
+    @ColumnInfo(name = "remainingMessages") var remainingMessage: Int
 )

@@ -65,7 +65,7 @@ class CustomPhotoDialog(): DialogFragment() {
             if (photoUrl == ""
                 || photoUrl == "null"
             ) {
-                storageRef.child("User profiles/${currentUser!!.phoneNumber}.png")
+                storageRef.child("User profiles/${currentUser!!.uid}.png")
                     .putFile(newPhotoUri)
                     .addOnSuccessListener { taskSnapshot ->
                         taskSnapshot.metadata?.reference?.downloadUrl
@@ -93,7 +93,7 @@ class CustomPhotoDialog(): DialogFragment() {
                         Log.d("UserDetailFragment", "Task unsuccessful", it)
                     }
             } else {
-                storageRef.child("User profiles/${currentUser?.phoneNumber.toString()}.png")
+                storageRef.child("User profiles/${currentUser?.uid}.png")
                     .putFile(newPhotoUri)
                     .addOnSuccessListener {
                         Log.d("UserDetailFragment", "Photo changed on cloud storage")

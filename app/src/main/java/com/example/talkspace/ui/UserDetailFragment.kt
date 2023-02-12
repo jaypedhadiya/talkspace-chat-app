@@ -97,7 +97,7 @@ class UserDetailFragment : Fragment() {
         val image = LocalProfilePhotoStorage.getProfilePhotoFromLocalStorage(requireContext())
         if (image == null){
             val imageFile = File("${requireContext().cacheDir}/profile.png")
-            Firebase.storage.reference.child("User profiles/${currentUser.phoneNumber.toString()}.png")
+            Firebase.storage.reference.child("User profiles/${currentUser.uid}.png")
                 .getFile(imageFile)
                 .addOnSuccessListener {
                     Glide.with(binding?.userProfileImage!!.context).load(LocalProfilePhotoStorage.getProfilePhotoFromLocalStorage(requireContext())).into(binding!!.userProfileImage)

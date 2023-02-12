@@ -1,5 +1,6 @@
 package com.example.talkspace.viewmodels
 
+import android.content.ContentResolver
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.talkspace.model.FirebaseMessage
@@ -9,10 +10,16 @@ import com.example.talkspace.model.SQLiteMessage
 import com.example.talkspace.repositories.ChatRepository
 import com.example.talkspace.repositories.ContactsRepository
 import com.example.talkspace.ui.currentUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ChatViewModel(private val chatRepository: ChatRepository,
 private val contactsRepository: ContactsRepository): ViewModel() {
-    val chats = chatRepository.getChat()
+
+    val chats : LiveData<List<SQLChat>> = chatRepository.getChat()
+    val contactOnAppUser: LiveData<List<SQLiteContact>> = contactsRepository.getAppContacts()
+    val contactNotOnAppUser: LiveData<List<SQLiteContact>> = contactsRepository.getInContact()
 
     private val _currentFriendName = MutableLiveData<String>()
     val currentFriendName : LiveData<String> = _currentFriendName
@@ -48,15 +55,12 @@ private val contactsRepository: ContactsRepository): ViewModel() {
         return chatRepository.getMessages(friendId)
     }
 
-    fun getContact():LiveData<List<SQLiteContact>>{
-        return contactsRepository.getContact()
-    }
     fun sendMessage(message: FirebaseMessage){
         chatRepository.sendMessage(currentFriendId.value.toString(),message,viewModelScope)
     }
 
-    fun startListeningForChats(context: Context){
-        chatRepository.startListeningForChats(context,viewModelScope)
+    fun startListeningForChats(){
+        chatRepository.startListeningForChats(viewModelScope)
     }
     fun startListeningForMessages(){
         chatRepository.startListeningForMessages(
@@ -77,7 +81,11 @@ private val contactsRepository: ContactsRepository): ViewModel() {
     }
 
     fun stopListeningForContacts(){
-        contactsRepository.sotpListeningForContacts()
+        contactsRepository.stopListeningForContacts()
+    }
+
+    fun syncContacts(contentResolver: ContentResolver) {
+        contactsRepository.syncContacts(contentResolver)
     }
 }
 

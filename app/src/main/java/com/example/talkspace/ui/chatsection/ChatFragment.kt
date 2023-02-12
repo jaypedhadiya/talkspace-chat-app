@@ -83,7 +83,10 @@ class ChatFragment : Fragment() {
         }
 //        send Massage
         binding.seadMassageButton.setOnClickListener {
-            sendMessage()
+            val text = binding.massageInputText.text.toString().replace(" ","")
+            if (text != "" && text != "null"){
+                sendMessage()
+            }
         }
     }
 

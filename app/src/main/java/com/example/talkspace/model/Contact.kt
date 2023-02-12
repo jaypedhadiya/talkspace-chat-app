@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 data class FirebaseContact(
     val contactPhoneNumber: String,
-    val contactName: String,
-    val contactAbout: String,
-    val contactPhotoUrl: String,
-    val isAppUser: Boolean
+    var contactName: String,
+    var contactAbout: String,
+    var contactPhotoUrl: String,
+    var isAppUser: Boolean
 ){
     fun toSQLiteObject():SQLiteContact {
         return SQLiteContact(
@@ -25,10 +25,10 @@ data class FirebaseContact(
 @Entity(tableName ="contacts")
 data class SQLiteContact(
     @PrimaryKey val contactPhoneNumber: String,
-    @ColumnInfo(name= "contactName") val contactName: String,
-    @ColumnInfo(name = "contactAbout") val contactAbout: String,
-    @ColumnInfo("contactPhotoUrl") val contactPhotoUrl: String,
-    @ColumnInfo(name = "isAppUser") val isAppUser: Boolean
+    @ColumnInfo(name= "contactName") var contactName: String,
+    @ColumnInfo(name = "contactAbout") var contactAbout: String,
+    @ColumnInfo("contactPhotoUrl") var contactPhotoUrl: String,
+    @ColumnInfo(name = "isAppUser") var isAppUser: Boolean
 ){
     fun toFirebaseContact():FirebaseContact{
         return FirebaseContact(
